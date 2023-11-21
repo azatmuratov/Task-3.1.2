@@ -11,12 +11,12 @@ import ru.itmentor.spring.boot_security.demo.services.UserService;
 import java.security.Principal;
 
 @Controller
-public class AdminAndUserController {
+public class AdminController {
     private UserService userService;
     private RoleService roleService;
 
     @Autowired
-    public AdminAndUserController(UserService userService, RoleService roleService) {
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
@@ -27,11 +27,6 @@ public class AdminAndUserController {
         return "users";
     }
 
-    @GetMapping("/user")
-    public String userProfile(Model model, Principal principal) {
-        model.addAttribute("user", userService.findByLogin(principal.getName()));
-        return "user";
-    }
     @GetMapping("/admin/users/new")
     public String newUser(@ModelAttribute("user") User user, Model model) {
         model.addAttribute("roleList", roleService.listRoles());
